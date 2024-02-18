@@ -7,8 +7,8 @@
  */
 void selection_sort(int *array, size_t size)
 {
-	int smallest, temp;
-	size_t i, j;
+	int temp;
+	size_t i, j, smallest;
 
 	for (i = 0; i < size - 1; i++)
 	{

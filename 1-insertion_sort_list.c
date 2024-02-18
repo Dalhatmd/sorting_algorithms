@@ -1,4 +1,10 @@
 #include "sort.h"
+/**
+ * insertion_sort_list - sorts a linkedList using the insertion sort algorithm
+ *
+ * @list: list to be sorted
+ *
+ */
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *current, *previous, *sorted, *temp;
@@ -19,6 +25,7 @@ void insertion_sort_list(listint_t **list)
 			if (sorted)
 				sorted->prev = current;
 			sorted = current;
+/*			print_list(*list);*/
 		}
 		else
 		{
@@ -33,8 +40,7 @@ void insertion_sort_list(listint_t **list)
 			temp->next = current;
 			current->prev = temp;
 		}
-		print_list(sorted);
+		print_list(*list);
 	}
 	*list = sorted;
 }
-

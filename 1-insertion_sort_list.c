@@ -1,46 +1,35 @@
 #include "sort.h"
 /**
- * insertion_sort_list - sorts a linkedList using the insertion sort algorithm
+ * insertion_sort_list - sorts a linked list using the insertion sort algorithm
  *
- * @list: list to be sorted
- *
+ * @list: pointer to head of linked list
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current, *previous, *sorted, *temp;
+	listint_t *current = (*list)->next;
+	listint_t *temp;
 
-	sorted = NULL;
-
-	if (!list || !(*list) || !((*list)->next))
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 
-	while (*list != NULL)
+	while (current != NULL)
 	{
-		current = *list;
-		*list = (*list)->next;
-
-		if (sorted == NULL || current->n <= sorted->n)
+		temp = current->next;
+		while (current->prev != NULL && current->n < current->prev->n)
 		{
-			current->next = sorted;
-			if (sorted)
-				sorted->prev = current;
-			sorted = current;
-/*			print_list(*list);*/
-		}
-		else
-		{
-			temp = sorted;
-			while (temp->next != NULL && temp->next->n < current->n)
-			{
-				temp = temp->next;
+			current->prev->next = current->next;
+			if (current->next != NULL)
+				current->next->prev = current->prev;
+			current->next = current->prev;
+			current->prev = current->prev->prev;
+			current->next->prev = current;
+			if (current->prev != NULL)
+				current->prev->next = current;
+			else
+				*list = current;
+			print_list(*list);
 			}
-			current->next = temp->next;
-			if (temp->next)
-				temp->next->prev = current;
-			temp->next = current;
-			current->prev = temp;
+			current = temp;
 		}
-		print_list(*list);
-	}
-	*list = sorted;
 }
+
